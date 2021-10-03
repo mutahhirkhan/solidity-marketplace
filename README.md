@@ -1,3 +1,33 @@
+# What's inside this repository ?
+Contains a digital marketplace, where 3 type of entites interacts with each other, 
+1 - Deployer  => who had build the marketplace
+2 - maker     => who initiate the sale
+3 - taker     => who bought the sale
+
+it contains a contract file name NFTMarket.sol where all the market logics were written, there is a NFT contract which only will 
+create an NFT, the rest of the work will be execute in NFTMarket contract. NFTMartket contract has a function named 'createMarketItem', which take some aurguments and set the created NFT onto market sale.
+
+later this, onsale NFTs will be seen to market using FrontEnd as contract also has a function named 'fetchMarketItems'. 
+this function will return all the items that are currently onsale. it's a view function means no gas charges and doesn't change 
+the contract state so no fee. 
+
+if anyone from the user wants to see his minted NFTs, yep we do has this functionality. there is a function named
+'fetchMyNFTs', it would loop through all the minted NFTs and filter those where the owner address is your address.
+and returns an array which contains all you minted tokens
+
+H  O W   T O   S E L L  ?
+we have a function named 'createMarketSale' which take 2 params one is nftContract address from where the nft minted
+2nd is the itemId, itemId increments everytime when a new token is minted. it's unique thorughout the tokens. so these two parmas 
+helps in to map over all the NFTs are on sale, and findout the one of id as itemId. then we compare the price given in msg.value.
+when testing this function, 'msg.value' will be sent as an object like this {value: 1000000} i.e. 1eth. then we transfer the 
+fund to buyer of specific NFT. 
+
+how funds transfer ?
+when marketItem creates, the seller send the amount, and contract will hold that money for you. when buyer bought NFT then tranfer the amount from the contrat which listed in NFT struct. 
+
+
+
+
 # Solidity Template
 
 My favourite setup for writing Solidity smart contracts.
